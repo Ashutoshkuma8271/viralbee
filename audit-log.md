@@ -296,3 +296,8 @@ Record of approved changes that deleted, overwrote or bulk-edited project data. 
 - **Fix (`FooterWordmark.tsx`):** after the Vyral rename the big wordmark was 8 px too wide on phones and broke into "Vyral B / ee". Size 18.5vw → 17.6vw below 1536 px (big screens unchanged) and the letters set in one non-wrapping row; measured to fit from 360 to 1900 px.
 - **Cursor ring (`common/CursorGlow.tsx`):** now neutral (ink ring, no gold glow) over light backgrounds, gold over dark. Note: this component is not mounted anywhere on the site, so visitors see no change; it only matters if the ring is switched on later.
 - **Checks:** `tsc` and production build OK; footer at 1440/768/390: no horizontal scroll, all links ≥ 44 px tall, hover states measured (link 6 px slide + amber + full underline; social −3 px lift + amber fill + 1.1× icon; CTA arrow 4 px up-right + glow); reduced motion: no movement.
+
+## 2026-10-16: Phone menu numbers removed; project published to GitHub (owner request)
+
+- **Menu:** `Navbar.tsx` — the 01–07 numbers before each phone-menu link removed (current page still shown in gold); the decorative arrow is now hidden from screen readers. Restore point: `_backup/2026-10-16-menu-numbers/`.
+- **GitHub:** new local repository in `digitalagency-main`, all project files committed ("first commit", 493 files; `node_modules`, `dist`, `_backup/` excluded by `.gitignore`; checked beforehand: no secrets, only `.env.example` with an empty placeholder), branch `main`, pushed to `https://github.com/Ashutoshkuma8271/viralbee.git` (the repository was empty, so nothing there was overwritten). The owner's pasted commands added only `README.md`; the whole project was added instead because the goal was to publish the site.
