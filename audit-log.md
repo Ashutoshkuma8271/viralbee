@@ -310,3 +310,11 @@ Record of approved changes that deleted, overwrote or bulk-edited project data. 
 - **New emblem** (`public/logo.svg`, `public/favicon.svg`, hi-res `design/brand/vyralbee-emblem-hires.svg`): the real mark on a disc in the site gold (#F2A516, lit gradient), thin inner ring as in the original, fine light rim and soft top highlight. The tiny in-circle wordmark and tagline are left out at icon sizes (unreadable at 16–48 px); the name stays beside the emblem. PNG icons re-rendered: `favicon-48.png`, `icon-512.png`, `apple-touch-icon.png` (on site black). `og-image.png` re-rendered.
 - **`Logo.tsx`:** emblem gets a soft gold halo and, on hover (mouse, motion allowed), a light sweep across the disc.
 - **Checks:** `tsc` and production build OK; logo loads in navbar and footer at 1440/390, no console errors.
+
+## 2026-10-17: Home About section upgrade (owner request; local only, not pushed)
+
+- **Restore point:** `_backup/2026-10-17-home-about/` (`About.tsx`, `content.ts`, `index.css`, `docs/design.md`, this log, before the change). To undo: copy them back and delete the new `src/components/common/HexLattice.tsx`.
+- **Changed:** `About.tsx` (honeycomb floor + back lattice, gold glow following the pointer, gold hairline, static grain; headline Clash 600 in two lines with word reveals; four separate stat cards dealing in from depth with hexagons that draw in and fill gold on hover; "More about us" magnetic, fills gold on hover). `content.ts`: new `BRAND.aboutHeadline` (same words, moved out of the component). `index.css`: `.grain-static`, `.floor-mask`, `.text-silver`, `.text-gold-lit`. New `common/HexLattice.tsx`. `docs/design.md`: short entry.
+- **Text colours (owner follow-up):** silver-white headline, lit-gold "Working as yours." (brightens 55% → 100% with scroll; 55% keeps it above 3:1 for large text) and lit-gold numbers.
+- **Kept:** h2, dl/dt/dd, sr-only labels, `Deferred` wrapper, no new canvas, no pinning, all copy. Brand spelled Vyral (owner's rename) although the brief said Viral.
+- **Checks:** `tsc` and production build OK; 1900/1440/390: no horizontal scroll; "6-step" fits its card from 360 to 1900 px; deal-in staggered and settles flat; pointer shifts the floor about ±10 px; phones flat, reduced motion static; no console errors.

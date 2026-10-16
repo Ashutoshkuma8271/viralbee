@@ -9,6 +9,11 @@ export const BRAND = {
   subheadline:
     "Vyral Bee is a creative digital marketing agency helping businesses build a strong online presence, attract the right audience, and generate measurable growth.",
   aboutHeading: "Who Is Vyral Bee",
+  // Home About teaser headline: the statement, then the line that brightens as you scroll
+  aboutHeadline: {
+    lead: "One team for your social, website and ads.",
+    follow: "Working as yours.",
+  },
   aboutCopy:
     "We work as an extension of your team — combining strategy, design, and performance marketing under one roof, so you don't have to manage five different freelancers to get consistent results.",
   

@@ -128,3 +128,7 @@ akirafresh.com (ticker band, fact strip), wearecollins.com (large type lists, fo
 ## Cinematic 3D layer (2026-10-16)
 
 Real-time 3D honeycomb scenes, cursor ring, page-transition wipe, tilt-and-shine cards and gold button glint. See `docs/cinematic-3d.md` for where each runs, the files, the fallbacks and how to tweak colours and speed.
+
+## Home About teaser (2026-10-17)
+
+Honeycomb floor (`common/HexLattice.tsx`, two SVG paths per lattice) on a plane tilted 58° that drifts toward you on scroll, with a larger, fainter lattice moving the other way; masked into the ink at the horizon, bottom and left (`.floor-mask`). Four stat cards deal in from depth (alternating ±26° rotateY, each on its own spring-smoothed slice of scroll) with TiltCard + Spotlight inside; numbers size to their card (`cqw`). Text tones (owner request): silver-white headline (`.text-silver`), lit gold "Working as yours." and numbers (`.text-gold-lit`). Phones: flat static lattice, fade-ups; reduced motion: static.

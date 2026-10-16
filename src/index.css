@@ -242,6 +242,36 @@ body {
     18%, 100% { background-position: -20% 0, 0 0; }
   }
 
+  /* Premium text tones on dark (home About): a cool silver-white sheen and a lit gold, both top-to-bottom so each
+     word looks the same when headings are split into words */
+  .text-silver {
+    color: #FFFFFF;
+    background-image: linear-gradient(180deg, #FFFFFF 15%, #CFCFD6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gold-lit {
+    color: var(--color-gold);
+    background-image: linear-gradient(180deg, #F9C35A 0%, #F2A516 55%, #D8900C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Fine monochrome grain, static (no blend mode, no animation) */
+  .grain-static {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Honeycomb floor (home About): fades into the ink at the horizon (top), at the bottom edge and on the left, so it recedes from the right */
+  .floor-mask {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, #000 80%, transparent 100%), linear-gradient(to right, transparent 8%, #000 62%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, #000 80%, transparent 100%), linear-gradient(to right, transparent 8%, #000 62%);
+    mask-composite: intersect;
+  }
+
   /* Slow drift for large decorative shapes */
   .drift-slow {
     animation: drift-slow 16s ease-in-out infinite alternate;
