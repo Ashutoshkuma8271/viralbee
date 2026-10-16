@@ -28,17 +28,27 @@ export const Logo: React.FC<LogoProps> = ({
   showTagline = false,
 }) => {
   return (
-    <div className={`flex select-none items-center gap-3 ${className}`}>
-      <img
-        src="/logo.svg"
-        alt=""
-        aria-hidden="true"
-        width={40}
-        height={40}
-        className={`${markSize[size]} shrink-0 object-contain`}
-        loading="eager"
-        decoding="async"
-      />
+    <div className={`group/logo flex select-none items-center gap-3 ${className}`}>
+      {/* Emblem: the real VB bee mark on a site-gold disc (public/logo.svg), with a soft gold halo and, on hover, a
+          light sweep across the disc */}
+      <span
+        className={`${markSize[size]} relative shrink-0 overflow-hidden rounded-full shadow-[0_0_22px_-4px_rgba(242,165,22,0.45)]`}
+      >
+        <img
+          src="/logo.svg"
+          alt=""
+          aria-hidden="true"
+          width={40}
+          height={40}
+          className="h-full w-full object-contain"
+          loading="eager"
+          decoding="async"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(115deg,transparent_38%,rgba(255,255,255,0.55)_50%,transparent_62%)] bg-[length:260%_100%] bg-[position:140%_0] bg-no-repeat transition-[background-position] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover/logo:bg-[position:-40%_0]"
+        />
+      </span>
 
       {showWordmark && (
         <div className="flex flex-col justify-center text-left">

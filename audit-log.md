@@ -301,3 +301,12 @@ Record of approved changes that deleted, overwrote or bulk-edited project data. 
 
 - **Menu:** `Navbar.tsx` — the 01–07 numbers before each phone-menu link removed (current page still shown in gold); the decorative arrow is now hidden from screen readers. Restore point: `_backup/2026-10-16-menu-numbers/`.
 - **GitHub:** new local repository in `digitalagency-main`, all project files committed ("first commit", 493 files; `node_modules`, `dist`, `_backup/` excluded by `.gitignore`; checked beforehand: no secrets, only `.env.example` with an empty placeholder), branch `main`, pushed to `https://github.com/Ashutoshkuma8271/viralbee.git` (the repository was empty, so nothing there was overwritten). The owner's pasted commands added only `README.md`; the whole project was added instead because the goal was to publish the site.
+
+## 2026-10-16: Real logo on the site (owner request; also fixes the "VYRABEE" badge)
+
+- **Restore point:** `_backup/2026-10-16-real-logo/` (`public/logo.svg`, `favicon.svg`, `favicon-48.png`, `apple-touch-icon.png`, `icon-512.png`, `og-image.png`, `src/components/Logo.tsx`, `design/og/og.html`, `index.html`, this log). To undo: copy them back.
+- **Why "VYRABEE":** the old drawn badge placed its text for "VIRAL"; after the rename the wider "VYRAL" ran under the white "BEE", hiding the "L". Replaced entirely.
+- **Source:** owner's logo saved as `design/brand/vyralbee-logo-original.jpg` (master copy). The VB bee mark (V, B, antennae, white wings) was lifted off its yellow background into `design/brand/vb-mark.png` (transparent, smooth edges; soft shadow kept).
+- **New emblem** (`public/logo.svg`, `public/favicon.svg`, hi-res `design/brand/vyralbee-emblem-hires.svg`): the real mark on a disc in the site gold (#F2A516, lit gradient), thin inner ring as in the original, fine light rim and soft top highlight. The tiny in-circle wordmark and tagline are left out at icon sizes (unreadable at 16–48 px); the name stays beside the emblem. PNG icons re-rendered: `favicon-48.png`, `icon-512.png`, `apple-touch-icon.png` (on site black). `og-image.png` re-rendered.
+- **`Logo.tsx`:** emblem gets a soft gold halo and, on hover (mouse, motion allowed), a light sweep across the disc.
+- **Checks:** `tsc` and production build OK; logo loads in navbar and footer at 1440/390, no console errors.
