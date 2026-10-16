@@ -1,0 +1,462 @@
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/fraunces/wght-italic.css";
+@import "tailwindcss";
+
+/* Self-hosted Fontshare faces (ITF Free Font License, free for commercial use). Files live in /public/fonts. */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@theme {
+  /* Noir & honey palette: a deep honey amber, a neutral rich black, and crisp white for light sections (no cream) */
+  --color-gold: #F2A516;
+  --color-gold-light: #F7BA4A;
+  --color-gold-dark: #7A5600;
+  --color-ink: #0B0B0C;
+  --color-dark-bg: #0B0B0C;
+  --color-dark-surface: #121214;
+  --color-dark-card: #19191C;
+  --color-dark-card-hover: #212125;
+  --color-wax: #FFFFFF; /* light sections: pure white */
+  --color-wax-deep: #F5F5F7; /* cool light grey for chips, placeholders and inset surfaces (never cream) */
+  --color-comb: #17171A;
+  --color-paper: #FFFFFF;
+  --color-warm-light: #FFFFFF;
+  --color-slate-body: #A1A1AA;
+
+  --font-sans: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Clash Display', 'Satoshi', system-ui, sans-serif;
+  --font-mono: 'Satoshi', system-ui, sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
+
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+html {
+  background: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ink);
+  color: #F5F5F5;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+@layer utilities {
+  /* Page container shared by navbar, hero and sections so every left edge lines up */
+  .shell {
+    width: 100%;
+    max-width: 1720px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .shell { padding-inline: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .shell { padding-inline: 3rem; }
+  }
+
+  /* Clash Display sets tight word spaces at large sizes; open them up slightly */
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+    word-spacing: 0.06em;
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .font-mono {
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Editorial serif for a few feature moments (industries, footer statement, pull quote) */
+  .font-serif-display {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+    letter-spacing: -0.02em;
+  }
+  /* Kept for older markup; renders inline with the surrounding heading */
+  .font-accent {
+    font-style: normal;
+  }
+
+  /* Scales with width and height, so short laptop screens get a smaller headline */
+  .text-fluid-hero {
+    font-size: clamp(2.4rem, min(5.2vw, 7vh) + 0.5rem, 6.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.005em;
+    word-spacing: 0.08em;
+  }
+
+  .text-fluid-h2 {
+    font-size: clamp(2.1rem, 3.6vw + 0.6rem, 4rem);
+    line-height: 1.04;
+    letter-spacing: 0;
+    word-spacing: 0.08em;
+  }
+
+  .text-fluid-h3 {
+    font-size: clamp(1.3rem, 1.6vw + 0.6rem, 1.85rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  /* Photo scrim: strong behind the text, nearly clear on the far side so the picture stays visible and sharp */
+  .scrim-hero {
+    background: linear-gradient(to top, rgba(11, 11, 12, 0.94) 0%, rgba(11, 11, 12, 0.82) 40%, rgba(11, 11, 12, 0.6) 75%, rgba(11, 11, 12, 0.5) 100%);
+  }
+  @media (min-width: 1024px) {
+    .scrim-hero {
+      background: linear-gradient(90deg, rgba(11, 11, 12, 0.9) 0%, rgba(11, 11, 12, 0.78) 36%, rgba(11, 11, 12, 0.42) 64%, rgba(11, 11, 12, 0.36) 100%);
+    }
+  }
+  /* Inner-page headers: below 1024px the photo shows clearly in the top part and the text sits lower, on the dark end */
+  .scrim-page {
+    background: linear-gradient(to top, rgba(11, 11, 12, 0.96) 0%, rgba(11, 11, 12, 0.86) 48%, rgba(11, 11, 12, 0.4) 72%, rgba(11, 11, 12, 0.1) 100%);
+  }
+  @media (min-width: 1024px) {
+    .scrim-page {
+      background: linear-gradient(90deg, rgba(11, 11, 12, 0.9) 0%, rgba(11, 11, 12, 0.78) 36%, rgba(11, 11, 12, 0.3) 64%, rgba(11, 11, 12, 0.04) 100%);
+    }
+  }
+  /* Hero film look: darkened edges, fine animated grain, and the moving line in the scroll cue */
+  .hero-vignette {
+    background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+  }
+  .film-grain {
+    inset: -10%;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 0.9s steps(6) infinite;
+  }
+  @keyframes grain {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-3%, 2%); }
+    50% { transform: translate(2%, -3%); }
+    75% { transform: translate(-2%, -1%); }
+    100% { transform: translate(0, 0); }
+  }
+  /* Slow warm light sweep across the hero frame (projector beam) */
+  .hero-sweep {
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 196, 90, 0.10) 47%, rgba(255, 236, 200, 0.16) 50%, rgba(255, 196, 90, 0.10) 53%, transparent 62%);
+    background-size: 260% 100%;
+    background-position: 130% 0;
+    mix-blend-mode: screen;
+    animation: hero-sweep 9s cubic-bezier(0.45, 0, 0.25, 1) 1.2s infinite;
+  }
+  @keyframes hero-sweep {
+    0% { background-position: 130% 0; }
+    55%, 100% { background-position: -30% 0; }
+  }
+  /* Honeycomb cells in the hero drift gently up and down */
+  .hex-float {
+    animation: hex-float 8s ease-in-out infinite alternate;
+  }
+  @keyframes hex-float {
+    from { transform: translateY(-8px) rotate(-2deg); }
+    to { transform: translateY(8px) rotate(2deg); }
+  }
+  .scroll-cue {
+    animation: scroll-cue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+  @keyframes scroll-cue {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(200%); }
+  }
+
+  /* Keeps white type readable over the brighter parts of a photo */
+  .text-on-photo {
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Subtle gold glow on accent words */
+  /* Deep gold for accent words on light backgrounds; both ends stay above 3:1 on white for large text */
+  .text-gold-ink {
+    color: var(--color-gold-dark);
+    background-image: linear-gradient(180deg, #A87200 0%, #7A5600 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Light sweep across .text-gold-ink words: once when it starts, then every 8 seconds (added by the section) */
+  .text-gold-sweep {
+    background-image:
+      linear-gradient(105deg, transparent 38%, rgba(255, 214, 120, 0.95) 50%, transparent 62%),
+      linear-gradient(180deg, #A87200 0%, #7A5600 90%);
+    background-size: 300% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 120% 0, 0 0;
+    animation: gold-sweep 8s ease-in-out infinite;
+  }
+  @keyframes gold-sweep {
+    0% { background-position: 120% 0, 0 0; }
+    18%, 100% { background-position: -20% 0, 0 0; }
+  }
+
+  /* Slow drift for large decorative shapes */
+  .drift-slow {
+    animation: drift-slow 16s ease-in-out infinite alternate;
+  }
+  @keyframes drift-slow {
+    from { transform: translate3d(0, -14px, 0) rotate(-3deg); }
+    to { transform: translate3d(0, 14px, 0) rotate(3deg); }
+  }
+
+  .glow-gold {
+    text-shadow: 0 0 40px rgba(242, 165, 22, 0.25);
+  }
+
+  /* Semantic typography color utilities */
+  .text-subhead-dark {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .text-body-dark {
+    color: rgba(255, 255, 255, 0.70);
+  }
+  .text-meta-dark {
+    color: rgba(255, 255, 255, 0.60);
+  }
+  .text-body-light {
+    color: rgba(11, 11, 12, 0.70);
+  }
+  .text-meta-light {
+    color: rgba(11, 11, 12, 0.60);
+  }
+  .text-eyebrow-dark {
+    color: var(--color-gold);
+  }
+  .text-eyebrow-light {
+    color: var(--color-gold-dark);
+  }
+
+  /* Light glint shimmer on gold buttons */
+  .btn-glint {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-glint::after {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.45) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+  .btn-glint:hover::after {
+    transform: translateX(100%);
+  }
+
+  @keyframes goldSweep {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .footer-wordmark-gradient {
+    background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 38%, #F2A516 62%, #F7BA4A 78%, #FFFFFF 100%);
+    background-size: 240% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: goldSweep 11s ease-in-out infinite;
+  }
+
+  .link-draw-gold {
+    position: relative;
+  }
+  .link-draw-gold::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0.35);
+    transform-origin: left;
+    opacity: 0.6;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  }
+  .link-draw-gold:hover::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .input-studio {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .input-studio:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(242, 165, 22, 0.18);
+    outline: none;
+  }
+
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-dark-card);
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: var(--animate-shimmer);
+  }
+  .skeleton-light {
+    background: var(--color-wax-deep);
+  }
+
+  /* Endless ticker: content is rendered twice and shifted by half its width */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: var(--animate-marquee);
+  }
+  .marquee:hover .marquee-track,
+  .marquee:active .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Paragraphs avoid leaving a single word alone on the last line */
+p {
+  text-wrap: pretty;
+}
+
+/* Tactile press on pill buttons (uses the individual `scale` property, so it never fights translate/rotate hover effects) */
+a[class*='rounded-full']:active,
+button[class*='rounded-full']:active {
+  scale: 0.97;
+}
+
+/* Light sweep across gold pill buttons on hover (a glint, like light across metal) */
+a[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']),
+button[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']) {
+  position: relative;
+  overflow: hidden;
+}
+a[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed'])::after,
+button[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed'])::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  transform: translateX(-130%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+a[class~='bg-gold'][class*='rounded-full']:hover::after,
+button[class~='bg-gold'][class*='rounded-full']:hover::after {
+  transform: translateX(130%);
+}
+
+/* Outline lettering for the kinetic band */
+.text-outline-gold {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-gold);
+}
+
+/* WhatsApp button: a ring that grows and fades (runs 3 times) */
+@keyframes wa-pulse {
+  from { transform: scale(1); opacity: 0.55; }
+  to { transform: scale(1.7); opacity: 0; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #0B0B0C;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: #2E2E33;
+  border-radius: 8px;
+  border: 2px solid var(--color-ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3F3F46;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track,
+  .text-gold-sweep,
+  .drift-slow {
+    animation: none !important;
+  }
+  /* No motion: the pill row becomes a normal swipeable row and the duplicate set is hidden */
+  .marquee-pills {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .marquee-pills ul[aria-hidden="true"] {
+    display: none;
+  }
+}

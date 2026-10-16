@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace the domain below with the real one before launch
+Sitemap: https://vyralbee.com/sitemap.xml

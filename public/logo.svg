@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Gold gradient -->
+    <radialGradient id="goldGlow" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFD426"/>
+      <stop offset="70%" stop-color="#F5B90F"/>
+      <stop offset="100%" stop-color="#E0A405"/>
+    </radialGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Main Background Badge -->
+  <circle cx="250" cy="250" r="240" fill="url(#goldGlow)"/>
+  
+  <!-- Outer Double Rings -->
+  <circle cx="250" cy="250" r="236" fill="none" stroke="#0A0A0A" stroke-width="7"/>
+  <circle cx="250" cy="250" r="222" fill="none" stroke="#0A0A0A" stroke-width="2.5"/>
+
+  <!-- VB Bee Monogram Group -->
+  <g id="bee-monogram" transform="translate(250, 195)">
+    <!-- Antennae -->
+    <path d="M -22 -65 C -28 -82 -40 -92 -52 -96" fill="none" stroke="#0A0A0A" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="-53" cy="-97" r="6" fill="#0A0A0A"/>
+    
+    <path d="M -10 -68 C -6 -84 6 -95 18 -98" fill="none" stroke="#0A0A0A" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="19" cy="-99" r="6" fill="#0A0A0A"/>
+
+    <!-- Wing (White petal shapes) -->
+    <!-- Upper Wing -->
+    <path d="M 46 -35 C 75 -65 130 -45 138 -20 C 142 5 95 10 50 -10 Z" fill="#FFFFFF" filter="url(#softShadow)"/>
+    <!-- Lower Wing Petal -->
+    <path d="M 44 -2 C 70 -5 105 12 108 26 C 110 40 75 42 46 16 Z" fill="#FFFFFF" filter="url(#softShadow)"/>
+
+    <!-- Left 'V' Arm -->
+    <path d="M -132 -60 L -72 58 L -36 58 L -94 -60 Z" fill="#0A0A0A"/>
+
+    <!-- 'B' and Fused Body Shape -->
+    <!-- Top Bowl -->
+    <path d="M -30 -60 L 32 -60 C 58 -60 76 -46 76 -24 C 76 -4 56 6 30 6 L -30 6 Z M -3 -38 L 26 -38 C 38 -38 46 -43 46 -26 C 46 -10 36 -6 24 -6 L -3 -6 Z" fill="#0A0A0A"/>
+    
+    <!-- Middle connector and Bottom Bowl -->
+    <path d="M -30 -6 L 36 -6 C 66 -6 86 10 86 35 C 86 58 64 74 32 74 L -30 74 Z M -3 14 L 28 14 C 42 14 54 20 54 36 C 54 52 40 54 26 54 L -3 54 Z" fill="#0A0A0A"/>
+
+    <!-- Central V-B Fusion wedge -->
+    <path d="M -72 58 L -40 -6 L -20 -6 L -36 58 Z" fill="#0A0A0A"/>
+    
+    <!-- Inner cutouts highlight / bee stripes styling -->
+    <path d="M -30 18 L 48 18 L 48 32 L -30 32 Z" fill="#F5B90F"/>
+  </g>
+
+  <!-- Wordmark: VYRAL (Black) BEE (White) -->
+  <g transform="translate(250, 360)" text-anchor="middle" font-family="'Space Grotesk', 'Montserrat', 'Arial Black', sans-serif" font-weight="900" font-size="44" letter-spacing="4">
+    <text x="-38" y="0" fill="#0A0A0A">VYRAL</text>
+    <text x="76" y="0" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.5" paint-order="stroke fill">BEE</text>
+  </g>
+
+  <!-- Divider & Tagline: CREATE • CONNECT • CONVERT -->
+  <g transform="translate(250, 400)">
+    <line x1="-165" y1="-5" x2="-125" y2="-5" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="0" y="0" text-anchor="middle" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12.5" font-weight="800" fill="#0A0A0A" letter-spacing="4.5">
+      CREATE  •  CONNECT  •  CONVERT
+    </text>
+    <line x1="125" y1="-5" x2="165" y2="-5" stroke="#0A0A0A" stroke-width="2"/>
+  </g>
+</svg>

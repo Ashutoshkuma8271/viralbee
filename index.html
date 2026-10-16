@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Home-page defaults. Each route updates these in the browser (src/lib/usePageMeta.ts).
+         %SITE_URL% is replaced at build time from SITE_URL in vite.config.ts. -->
+    <title>Vyral Bee | Digital Marketing Agency for Social, Web &amp; Ads</title>
+    <meta name="description" content="Vyral Bee plans, creates and runs your social media, design, video, website and ads as one system, so your brand gets seen and chosen." />
+    <link rel="canonical" href="%SITE_URL%/" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vyral Bee" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:title" content="Vyral Bee | Digital Marketing Agency for Social, Web &amp; Ads" />
+    <meta property="og:description" content="Social media, design, video, websites and ads, planned by one team so your brand gets seen and chosen." />
+    <meta property="og:image" content="%SITE_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Vyral Bee: We make brands visible. Social media, design, video, websites and ads." />
+
+    <!-- X / Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vyral Bee | Digital Marketing Agency for Social, Web &amp; Ads" />
+    <meta name="twitter:description" content="Social media, design, video, websites and ads, planned by one team so your brand gets seen and chosen." />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.png" />
+
+    <!-- Structured data: facts only (no ratings or social links until real ones are confirmed) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "%SITE_URL%/#organization",
+            "name": "Vyral Bee",
+            "url": "%SITE_URL%/",
+            "logo": "%SITE_URL%/icon-512.png",
+            "description": "Vyral Bee is a creative digital marketing agency helping businesses build a strong online presence, attract the right audience, and generate measurable growth.",
+            "telephone": "+91-85128-77877",
+            "email": "info@akirafresh.in",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "R-18, Vikas Marg, Laxmi Nagar, Near Nirman Vihar Metro Station, Pillar No. 48",
+              "addressLocality": "New Delhi",
+              "addressRegion": "Delhi",
+              "postalCode": "110092",
+              "addressCountry": "IN"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "%SITE_URL%/#website",
+            "name": "Vyral Bee",
+            "url": "%SITE_URL%/",
+            "publisher": { "@id": "%SITE_URL%/#organization" }
+          }
+        ]
+      }
+    </script>
+
+    <meta name="theme-color" content="#0B0B0C" />
+
+    <!-- Fonts are self-hosted from /fonts (see src/index.css). Preload the faces and first hero slide used above the fold. -->
+    <script>
+      // Preload the first hero photo on the home page only (inner pages don't show it)
+      if (location.pathname === '/') {
+        var small = matchMedia('(max-width: 767px)').matches;
+        var l = document.createElement('link');
+        l.rel = 'preload'; l.as = 'image'; l.type = 'image/webp'; l.fetchPriority = 'high';
+        l.setAttribute('imagesizes', '100vw');
+        l.setAttribute('imagesrcset', small
+          ? '/images/hero/social-phone-900.webp 900w, /images/hero/social-phone-1400.webp 1400w'
+          : '/images/hero/social-phone-1600.webp 1600w, /images/hero/social-phone-1920.webp 1920w, /images/hero/social-phone-2560.webp 2560w, /images/hero/social-phone-3840.webp 3840w');
+        document.head.appendChild(l);
+      }
+    </script>
+  </head>
+  <body class="bg-[#0B0B0C] text-white font-sans antialiased overflow-x-hidden">
+    <div id="root">
+      <!-- First paint before JavaScript runs (home page only). React replaces this as soon as it mounts. -->
+      <div id="boot" class="flex min-h-svh flex-col justify-center bg-ink pb-64 pt-28 lg:pb-[13.5rem]">
+        <div class="shell flex flex-col items-center text-center lg:items-start lg:text-left">
+          <p class="text-base font-medium text-gold lg:text-lg">Social Media</p>
+          <p class="text-on-photo mx-auto mt-4 max-w-[15ch] font-display text-fluid-hero font-semibold text-white sm:max-w-[16ch] lg:mx-0">Social content people stop scrolling for.</p>
+          <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg lg:mx-0 lg:mt-8 lg:text-xl">Strategy, content calendars and community management that build a following which actually buys.</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      if (location.pathname !== '/') document.getElementById('boot').remove();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

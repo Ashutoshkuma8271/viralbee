@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Replace https://vyralbee.com with the real domain before launch -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://vyralbee.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://vyralbee.com/about</loc><priority>0.7</priority></url>
+  <url><loc>https://vyralbee.com/services</loc><priority>0.7</priority></url>
+  <url><loc>https://vyralbee.com/process</loc><priority>0.7</priority></url>
+  <url><loc>https://vyralbee.com/work</loc><priority>0.7</priority></url>
+  <url><loc>https://vyralbee.com/packages</loc><priority>0.7</priority></url>
+  <url><loc>https://vyralbee.com/contact</loc><priority>0.7</priority></url>
+  <url><loc>https://vyralbee.com/privacy</loc><priority>0.7</priority></url>
+</urlset>
