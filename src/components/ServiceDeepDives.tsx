@@ -16,7 +16,6 @@ import { HexLattice } from './common/HexLattice.tsx';
 import { EASE, VIEWPORT, useMediaQuery, useRamp } from '../lib/motion.ts';
 
 const HEX = 'M12 2 20.66 7v10L12 22l-8.66-5V7z';
-const pad = (n: number) => String(n).padStart(2, '0');
 
 type Service = (typeof SERVICES)[number];
 
@@ -88,10 +87,10 @@ const IncludedList: React.FC<{ items: string[]; modes: Modes; wide: boolean }> =
   );
 };
 
-/** One service: big outlined number, photo as a 3D object with hex layers, title, list and button */
+/** One service: photo as a 3D object with hex layers, title, list and button */
 const ServiceBlock: React.FC<{ service: Service; idx: number; modes: Modes }> = ({ service, idx, modes }) => {
   const detail = SERVICE_INCLUDES[service.id];
-  const photoLeft = idx % 2 === 0; // 1, 3, 5: photo left at 7 columns; 2, 4, 6: photo right at 5 columns
+  const photoLeft = idx % 2 === 0; // 1, 3, 5: photo left; 2, 4, 6: photo right. Equal halves, so every photo is the same size
   const towardText = photoLeft ? 1 : -1;
   const blockRef = useRef<HTMLElement>(null);
   const photoRef = useRef<HTMLDivElement>(null);
@@ -111,10 +110,9 @@ const ServiceBlock: React.FC<{ service: Service; idx: number; modes: Modes }> = 
   const pushYNum = useRamp(photoP, [0, 1], [-4, 4]);
   const pushY = useTransform(pushYNum, (v) => `${v}%`);
 
-  // Depth layers: number and hex cluster drift against the scroll at different speeds; warm glow on the block in view
+  // Depth layers: hex cluster drifts against the scroll; warm glow on the block in view
   const { scrollYProgress: passP } = useScroll({ target: blockRef, offset: ['start end', 'end start'] });
   const pass = useSpring(passP, { stiffness: 80, damping: 26, mass: 0.5 });
-  const numberY = useRamp(pass, [0, 1], [40, -40]);
   const clusterY = useRamp(pass, [0, 1], [50, -50]);
   const glow = useTransform(pass, (v) => Math.max(0, 1 - Math.abs(v - 0.5) / 0.3));
 
@@ -125,7 +123,7 @@ const ServiceBlock: React.FC<{ service: Service; idx: number; modes: Modes }> = 
       className="relative grid scroll-mt-32 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-16"
     >
       {/* Photo column */}
-      <div className={`relative ${photoLeft ? 'lg:col-span-7' : 'lg:order-2 lg:col-span-5'}`}>
+      <div className={`relative lg:col-span-6 ${photoLeft ? '' : 'lg:order-2'}`}>
         {/* Soft warm glow behind the photo of the service in view (about 8%) */}
         <motion.div
           className="pointer-events-none absolute left-1/2 top-1/2 h-[125%] w-[125%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(242,165,22,0.08),transparent)]"
@@ -191,17 +189,8 @@ const ServiceBlock: React.FC<{ service: Service; idx: number; modes: Modes }> = 
       {/* Text column */}
       <Reveal
         direction={photoLeft ? 'right' : 'left'}
-        className={`relative pt-14 text-left md:pt-0 ${photoLeft ? 'lg:col-span-5' : 'lg:order-1 lg:col-span-7'}`}
+        className={`relative text-left lg:col-span-6 ${photoLeft ? '' : 'lg:order-1'}`}
       >
-        {/* Big outlined number behind the logos and title; the six services are a sequence */}
-        <motion.span
-          className="num-outline pointer-events-none absolute left-0 top-0 select-none font-serif-display text-[clamp(4.5rem,22vw,7rem)] leading-none md:-top-16 md:text-[clamp(7rem,14vw,16rem)] lg:-top-24"
-          style={modes.depth ? { y: numberY } : undefined}
-          aria-hidden="true"
-        >
-          {pad(idx + 1)}
-        </motion.span>
-
         <motion.div
           className={`logos-stagger relative ${logosIn ? 'is-in' : ''}`}
           style={{ ['--from' as string]: photoLeft ? '24px' : '-24px' }}
@@ -215,9 +204,10 @@ const ServiceBlock: React.FC<{ service: Service; idx: number; modes: Modes }> = 
         </h3>
         <p className="relative mt-5 max-w-lg font-sans text-lg leading-relaxed text-white/75 sm:text-xl">{service.description}</p>
 
-        <IncludedList items={detail.items} modes={modes} wide={!photoLeft} />
+        <IncludedList items={detail.items} modes={modes} wide={false} />
 
-        <div className="relative mt-10">
+        {/* Button centred in the text column */}
+        <div className="relative mt-10 flex justify-center">
           <Magnetic>
             <Link
               to="/contact"
@@ -298,8 +288,7 @@ const ProgressRail: React.FC<{ progress: MotionValue<number>; active: number; re
 };
 
 /**
- * Services page: what each of the six services includes, as one scrolling journey. Each block has a big outlined
- * number, a photo that turns flat in 3D as it arrives (pointer tilt inside, slow push-in, hexagons behind and in
+ * Services page: what each of the six services includes, as one scrolling journey. Each block has a photo that turns flat in 3D as it arrives (pointer tilt inside, slow push-in, hexagons behind and in
  * front), and its list as drawing hairline rows. A thin line with a travelling gold dot links the blocks, and on
  * laptops a sticky rail on the left shows progress and jumps to each service. The ids stay the header chip targets.
  * Phones: no 3D turn, tilt, rail or parallax. Reduced motion: static and complete.
@@ -348,7 +337,7 @@ export const ServiceDeepDives: React.FC = () => {
           </Reveal>
         </div>
 
-        <div className="mt-16 sm:mt-28 lg:mt-40 lg:grid lg:grid-cols-[2.75rem_1fr] lg:gap-10 xl:gap-14">
+        <div className="mt-14 sm:mt-20 lg:mt-24 lg:grid lg:grid-cols-[2.75rem_1fr] lg:gap-10 xl:gap-14">
           <div className="hidden lg:block">
             <ProgressRail progress={blocksP} active={active} reduce={reduce} />
           </div>
