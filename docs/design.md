@@ -132,3 +132,7 @@ Real-time 3D honeycomb scenes, cursor ring, page-transition wipe, tilt-and-shine
 ## Home About teaser (2026-10-17)
 
 Honeycomb floor (`common/HexLattice.tsx`, two SVG paths per lattice) on a plane tilted 58° that drifts toward you on scroll, with a larger, fainter lattice moving the other way; masked into the ink at the horizon, bottom and left (`.floor-mask`). Four stat cards deal in from depth (alternating ±26° rotateY, each on its own spring-smoothed slice of scroll) with TiltCard + Spotlight inside; numbers size to their card (`cqw`). Text tones (owner request): silver-white headline (`.text-silver`), lit gold "Working as yours." and numbers (`.text-gold-lit`). Phones: flat static lattice, fade-ups; reduced motion: static.
+
+## About page story (2026-10-17)
+
+Team photo as an object in depth: it turns flat from rotateY −16° as the section scrolls in (outer wrapper) with pointer tilt inside (TiltCard), and pushes in slowly (scale 1.18 → 1.04); a large gold hexagon outline behind it and a small hex cluster in front move at different speeds; faint lattice on the right (`.lattice-fade-left`). Quote in Fraunces as a `<blockquote>` with a word-by-word read-along (0.4 → 1, StatementScene pattern). Pillars: hexagon bullets that draw in and fill gold on hover, rows that rise in, and ServicesOverview-style dimming. No blend modes over the photo (they forced a re-blend every scrolled frame). Phones: no turn, tilt, push-in or cluster parallax.

@@ -272,6 +272,14 @@ body {
     mask-composite: intersect;
   }
 
+  /* Background lattice on the right of a section (About story): fades into the ink on the left, top and bottom */
+  .lattice-fade-left {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 65%), linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0%, #000 65%), linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-composite: intersect;
+  }
+
   /* Slow drift for large decorative shapes */
   .drift-slow {
     animation: drift-slow 16s ease-in-out infinite alternate;

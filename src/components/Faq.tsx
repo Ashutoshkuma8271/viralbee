@@ -57,7 +57,7 @@ export const Faq: React.FC<FaqProps> = ({
                     onClick={() => setOpen(isOpen ? null : idx)}
                     className="group flex w-full cursor-pointer items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span className="font-display text-lg font-semibold leading-snug sm:text-xl">{item.q}</span>
+                    <span className="font-display text-lg font-semibold leading-snug transition-colors duration-300 group-hover:text-gold-dark sm:text-xl">{item.q}</span>
                     <span
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
                         isOpen ? 'rotate-45 bg-gold text-ink' : 'bg-ink/[0.06] text-ink group-hover:bg-ink/10'

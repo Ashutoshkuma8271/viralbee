@@ -312,7 +312,7 @@ export const ContactPanel: React.FC = () => {
               {status === 'handoff' && (
                 <p className="rounded-xl border border-gold/50 bg-white p-4 text-[15px]">
                   Your email app should have opened with your message ready to send. If it didn't, write to{' '}
-                  <a className="font-semibold underline" href={`mailto:${BRAND.contact.email}`}>
+                  <a className="font-semibold underline transition-colors hover:text-gold-dark" href={`mailto:${BRAND.contact.email}`}>
                     {BRAND.contact.email}
                   </a>{' '}
                   or use WhatsApp.
@@ -321,7 +321,7 @@ export const ContactPanel: React.FC = () => {
               {status === 'failed' && (
                 <p className="rounded-xl bg-red-100 p-4 text-[15px] text-red-900">
                   Sorry, that didn't go through, and nothing was sent. Please try again, or email{' '}
-                  <a className="font-semibold underline" href={`mailto:${BRAND.contact.email}`}>
+                  <a className="font-semibold underline transition-colors hover:text-gold-dark" href={`mailto:${BRAND.contact.email}`}>
                     {BRAND.contact.email}
                   </a>{' '}
                   or message us on WhatsApp.

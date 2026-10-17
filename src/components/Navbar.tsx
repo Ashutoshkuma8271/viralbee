@@ -148,13 +148,13 @@ export const Navbar: React.FC = () => {
                       end={link.href === '/'}
                       onClick={() => setMobileMenuOpen(false)}
                       className={({ isActive }) =>
-                        `flex items-center gap-4 py-4 font-display text-3xl font-medium transition-colors sm:text-4xl ${
-                          isActive ? 'text-gold' : 'text-white'
+                        `group/m flex items-center gap-4 py-4 font-display text-3xl font-medium transition-colors sm:text-4xl ${
+                          isActive ? 'text-gold' : 'text-white hover:text-gold'
                         }`
                       }
                     >
                       <span className="flex-1">{link.label}</span>
-                      <ArrowUpRight className="h-5 w-5 text-white/60" aria-hidden="true" />
+                      <ArrowUpRight className="h-5 w-5 text-white/60 transition-[transform,color] duration-300 group-hover/m:text-gold motion-safe:group-hover/m:-translate-y-0.5 motion-safe:group-hover/m:translate-x-0.5" aria-hidden="true" />
                     </NavLink>
                   </motion.div>
                 </div>
@@ -170,14 +170,14 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full rounded-full bg-gold py-4 text-center text-base font-semibold text-ink"
+                className="btn-glint w-full rounded-full bg-gold py-4 text-center text-base font-semibold text-ink transition-colors hover:bg-gold-light"
               >
                 Get a free strategy call
               </Link>
-              <a href={`mailto:${BRAND.contact.email}`} className="text-center text-sm text-white/60">
+              <a href={`mailto:${BRAND.contact.email}`} className="text-center text-sm text-white/60 transition-colors hover:text-gold">
                 {BRAND.contact.email}
               </a>
-              <a href={`tel:${BRAND.contact.phone.replace(/[^+\d]/g, '')}`} className="-mt-2 text-center text-sm text-white/60">
+              <a href={`tel:${BRAND.contact.phone.replace(/[^+\d]/g, '')}`} className="-mt-2 text-center text-sm text-white/60 transition-colors hover:text-gold">
                 {BRAND.contact.phone}
               </a>
             </motion.div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { FIRST_MONTH } from '../constants/content.ts';
 import { SectionHeader } from './common/SectionHeader.tsx';
@@ -8,6 +9,7 @@ import { TiltCard } from './common/TiltCard.tsx';
 
 /** About page: the four weeks after a client signs, shown as a connected row of stages. */
 export const FirstMonth: React.FC = () => {
+  const reduce = useReducedMotion();
   return (
     <section className="relative bg-dark-surface py-24 sm:py-32">
       <div className="shell">
@@ -34,9 +36,18 @@ export const FirstMonth: React.FC = () => {
                 <div className="h-full rounded-3xl border border-white/8 bg-dark-card p-7">
                   <h3 className="font-display text-2xl font-semibold text-white">{stage.title}</h3>
                   <ul className="mt-5 space-y-3">
-                    {stage.points.map((point) => (
+                    {stage.points.map((point, p) => (
                       <li key={point} className="flex items-start gap-3 text-base leading-snug text-white/70">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" strokeWidth={2.5} aria-hidden="true" />
+                        {/* Ticks pop in one after another, the same spring as the Services and Packages lists */}
+                        <motion.span
+                          className="mt-0.5 shrink-0"
+                          initial={reduce ? false : { scale: 0 }}
+                          whileInView={{ scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ type: 'spring', stiffness: 350, damping: 20, delay: 0.2 + p * 0.06 }}
+                        >
+                          <Check className="h-4 w-4 text-gold" strokeWidth={2.5} aria-hidden="true" />
+                        </motion.span>
                         {point}
                       </li>
                     ))}

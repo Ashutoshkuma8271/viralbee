@@ -3,8 +3,23 @@ import type { MotionValue } from 'framer-motion';
 import { useScene3D } from '../../lib/scene3d.ts';
 import type { SceneInputs, Variant } from './SceneContent.tsx'; // types only: erased at build, no three.js here
 
-// The three.js code is a separate download: it only starts loading once a scene is about to be needed
-const SceneCanvas = lazy(() => import('./SceneCanvas.tsx'));
+// The three.js code is a separate download. It starts once the page has loaded and the browser is idle (or, at the
+// latest, when a scene is about to be needed), so starting it never lands in the middle of a scroll.
+let canvasModule: Promise<typeof import('./SceneCanvas.tsx')> | null = null;
+const loadCanvas = () => (canvasModule ??= import('./SceneCanvas.tsx'));
+const SceneCanvas = lazy(loadCanvas);
+let preloadQueued = false;
+function preloadCanvasWhenIdle() {
+  if (preloadQueued || typeof window === 'undefined') return;
+  preloadQueued = true;
+  const idle = () => {
+    const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+    if (ric) ric(() => void loadCanvas(), { timeout: 5000 });
+    else window.setTimeout(() => void loadCanvas(), 2000);
+  };
+  if (document.readyState === 'complete') idle();
+  else window.addEventListener('load', idle, { once: true });
+}
 
 /** If WebGL fails after all (driver crash, context lost for good), the scene quietly disappears and the page stays as it was. */
 class SceneBoundary extends Component<{ onFail: () => void; children: React.ReactNode }, { failed: boolean }> {
@@ -53,6 +68,11 @@ export const SceneHost: React.FC<SceneHostProps> = ({ variant, px, py, progress,
   const [released, setReleased] = useState(deferMs === 0);
 
   inputs.current.kick = kick;
+
+  // Warm the 3D code up in idle time once any scene exists on the page (3D on only)
+  useEffect(() => {
+    if (enabled) preloadCanvasWhenIdle();
+  }, [enabled]);
 
   // Feed the live values (springs, scroll) into the scene without re-rendering React
   useEffect(() => {

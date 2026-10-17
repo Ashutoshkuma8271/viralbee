@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import { PROCESS_STEPS } from '../constants/content.ts';
 import { RevealWords } from './common/RevealWords.tsx';
+import { EASE, VIEWPORT } from '../lib/motion.ts';
 
 /** Process page: the six steps as one timeline whose gold line fills, and hexagons light up, as you scroll. */
 export const ProcessTimeline: React.FC = () => {
@@ -44,9 +45,9 @@ export const ProcessTimeline: React.FC = () => {
           {PROCESS_STEPS.map((step, idx) => {
             const isReached = idx < reached;
             return (
-              <li key={step.step} className="relative flex flex-col items-center gap-4 pb-16 text-center last:pb-0 sm:flex-row sm:items-start sm:gap-8 sm:text-left">
+              <li key={step.step} className="group relative flex flex-col items-center gap-4 pb-16 text-center last:pb-0 sm:flex-row sm:items-start sm:gap-8 sm:text-left">
                 <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center bg-ink" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" className="h-8 w-8">
+                  <svg viewBox="0 0 24 24" className="h-8 w-8 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:scale-110">
                     <path
                       d="M12 2 20.66 7v10L12 22l-8.66-5V7z"
                       className={`transition-colors duration-500 ${isReached ? 'fill-gold stroke-gold' : 'fill-ink stroke-white/30'}`}
@@ -55,8 +56,32 @@ export const ProcessTimeline: React.FC = () => {
                   </svg>
                 </span>
                 <div className="sm:pt-1.5">
-                  <h3 className="font-display text-3xl font-semibold text-white lg:text-4xl">{step.title}</h3>
-                  <p className="mx-auto mt-3 max-w-[36ch] text-base leading-relaxed text-white/70 sm:mx-0 sm:max-w-[48ch] lg:text-lg">{step.description}</p>
+                  {/* Title rises out of a mask as the step scrolls in; on hover it slides a little right */}
+                  <h3 className="font-display text-3xl font-semibold text-white lg:text-4xl">
+                    <span className="block overflow-hidden pb-[0.08em]">
+                      {/* Outer: the scroll rise (framer-motion). Inner: the hover slide (CSS), kept apart so they never fight */}
+                      <motion.span
+                        className="block"
+                        initial={reduceMotion ? false : { y: '105%' }}
+                        whileInView={{ y: '0%' }}
+                        viewport={VIEWPORT}
+                        transition={{ duration: 0.85, ease: EASE }}
+                      >
+                        <span className="block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:translate-x-1.5">
+                          {step.title}
+                        </span>
+                      </motion.span>
+                    </span>
+                  </h3>
+                  <motion.p
+                    className="mx-auto mt-3 max-w-[36ch] text-base leading-relaxed text-white/70 sm:mx-0 sm:max-w-[48ch] lg:text-lg"
+                    initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={VIEWPORT}
+                    transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
+                  >
+                    {step.description}
+                  </motion.p>
                 </div>
               </li>
             );

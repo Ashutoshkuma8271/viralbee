@@ -318,3 +318,35 @@ Record of approved changes that deleted, overwrote or bulk-edited project data. 
 - **Text colours (owner follow-up):** silver-white headline, lit-gold "Working as yours." (brightens 55% → 100% with scroll; 55% keeps it above 3:1 for large text) and lit-gold numbers.
 - **Kept:** h2, dl/dt/dd, sr-only labels, `Deferred` wrapper, no new canvas, no pinning, all copy. Brand spelled Vyral (owner's rename) although the brief said Viral.
 - **Checks:** `tsc` and production build OK; 1900/1440/390: no horizontal scroll; "6-step" fits its card from 360 to 1900 px; deal-in staggered and settles flat; pointer shifts the floor about ±10 px; phones flat, reduced motion static; no console errors.
+
+## 2026-10-17: Cinematic pass, finishing steps + missing hovers (owner approved; local only, not pushed)
+
+- **Restore point:** `_backup/2026-10-17-cinematic-pass/` (full `src/` and this log, before the change).
+- **Process page (`ProcessTimeline.tsx`):** step titles rise out of a mask as each step scrolls in, descriptions fade up after; hover (mouse) slides the title 6 px and grows the hexagon 1.1×. Rise (framer-motion) and hover slide (CSS) sit on separate elements so they never fight.
+- **First month (`FirstMonth.tsx`):** ticks pop in one after another (same spring as Services/Packages).
+- **Missing hovers added:** phone/tablet menu links turn gold with the arrow nudging up-right; its gold button gets the glint + lighter gold; its email/phone turn gold (`Navbar.tsx`). FAQ question text turns deep gold on hover (`Faq.tsx`). Email link in the contact confirmation message turns deep gold (`ContactPanel.tsx`).
+- **Tried and undone:** gold glow on the hero accent words: the word masks clip it, so it added nothing visible; `Hero.tsx` is identical to before.
+- **Skipped on purpose:** pill buttons 600 → 700 (not a hover; would restyle every button; owner asked not to disturb existing UI).
+- **Checks:** `tsc` and production build OK; Home, Process, Services at 1900/1440/390: no horizontal scroll, no console errors; reduced motion: titles in place, ticks static.
+
+## 2026-10-17: Speed fix — 3D scenes no longer freeze scrolling as long (owner request: "fix bug and error so website fast and smooth"; local only)
+
+- **Restore point:** `_backup/2026-10-17-perf-fix/` (full `src/` and this log, before the change). To undo: copy `src/components/three/SceneHost.tsx` and `SceneCanvas.tsx` back.
+- **Found:** production build, all 9 routes at 1440/390: no errors, no failed requests, no overflow; LCP 0.3–1.4 s (Home laptop 2.4 s), CLS ≈ 0. One real problem: scrolling Home on a laptop froze for 1.4 s (once 3 s) when the first 3D scene appeared, plus 0.3 s hitches while its code started. The "request aborted" lines seen earlier came from the long-running dev server, not the site.
+- **Changed (how scenes load and prepare; `SceneContent.tsx` and every scene's look untouched):** `three/SceneHost.tsx` starts the 3D code in browser idle time after the page loads instead of mid-scroll. `three/SceneCanvas.tsx` compiles shaders in the background (`compileAsync`) before the first frame (scene fades in when ready, with a 1.5 s safety start), and turns off three.js's per-shader error check in production builds (it forced the page to wait for every compile; still on in development).
+- **Result (3 runs, real Intel GPU):** worst freeze 1,382 ms → 430–850 ms; total busy time while scrolling Home ~2.8 s → ~1.8–2.3 s. All four 3D scenes checked: they still appear and look the same.
+- **Left as is:** `THREE.Clock` deprecation warning comes from inside `@react-three/fiber` (fix = package update, needs owner approval); "X4122" is a Windows graphics-driver note. Remaining freeze is mostly the bloom glow set-up inside the scene (`SceneContent.tsx`), not changed without the owner's decision.
+
+## 2026-10-17: Speed fix follow-up — fair re-measurement and a correction (owner approved; local only)
+
+- **Correction:** the previous entry's "worst freeze 1,382 ms → 430–850 ms" was wrong: the summary compared numbers as text. Fair re-measurement below replaces it.
+- **Fair test:** three production builds served side by side (before the fix / with the fix / fix + bloom `levels={5}`), Home scrolled top to bottom, fresh browser per run (first-time visitor, empty shader cache), 4 alternating rounds, medians. Before: worst 1,777 ms, total 3,774 ms. With the fix: worst 1,186 ms (−33%), total 2,821 ms (−25%). With cached shaders (returning visitor) the fix's worst freeze was ~240 ms vs ~1,500 ms. Lighter bloom (5 levels) gave no further gain, so it was **not** kept: `SceneContent.tsx` is unchanged (backup `_backup/2026-10-17-perf-fix-2/`).
+- **Home LCP 2.4 s:** not slowness: fonts load by 0.15 s, the text is visible at 0.2 s (static shell) and fully by 1.36 s; the metric is late because the hero copy fades in. Within Google's "good" (≤ 2.5 s); hero left untouched.
+- **`THREE.Clock` notice:** `@react-three/fiber` 9.8.2 is the newest stable release (only a 10.0 alpha exists), so no update can remove it; no package change made.
+
+## 2026-10-17: About page story section upgrade (owner approved "go"; local only, not pushed)
+
+- **Restore point:** `_backup/2026-10-17-about-story/` (`AboutStory.tsx`, `content.ts`, `index.css`, `docs/design.md`, this log, before the change). To undo: copy them back.
+- **Changed:** `AboutStory.tsx` (photo in depth: scroll turn + pointer tilt + push-in; gold hexagon behind, hex cluster in front, faint lattice and warm glow; quote as `<blockquote>` in Fraunces with read-along and a large gold opening mark; hidden `h2` "How we work", pillars as `h3` with drawing hexagon bullets, drawing dividers, hover dimming, Spotlight and a gold hairline). `content.ts`: `BRAND.aboutStoryCopy` and `ABOUT_PILLARS` (same words, moved out of the component). `index.css`: `.lattice-fade-left`. `docs/design.md`: short entry.
+- **Deviations from the brief:** read-along dims to 0.4, not 0.35 (keeps unread words above 3:1); the photo's warm tint is a plain gradient, not soft-light (the blend mode made scrolling heavier); photo push-in off on phones; brand stays "Vyral".
+- **Checks:** `tsc` and production build OK; 1900/1440/390 no horizontal scroll; turn −14° → flat as it scrolls in, read-along 0.4 → 1, hover dims other rows to 40% / fills the hexagon / slides the title 8 px; phones flat with read-along; reduced motion static and fully lit; no console errors. Speed (production, side by side with the old section): phones on par; laptop main-thread work on par; laptop showed more slow frames in noisy tests (graphics compositing of the layered photo) — flagged for the owner to judge.

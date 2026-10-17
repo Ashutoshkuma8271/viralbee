@@ -9,6 +9,9 @@ export const BRAND = {
   subheadline:
     "Vyral Bee is a creative digital marketing agency helping businesses build a strong online presence, attract the right audience, and generate measurable growth.",
   aboutHeading: "Who Is Vyral Bee",
+  // About page story: the paragraph under the quote
+  aboutStoryCopy:
+    "Design, video, websites and paid media are planned together, so every post, page and ad looks like the same brand and pushes toward the same goal: more enquiries.",
   // Home About teaser headline: the statement, then the line that brightens as you scroll
   aboutHeadline: {
     lead: "One team for your social, website and ads.",
@@ -51,6 +54,13 @@ export const NAV_LINKS = [
   { label: "Work", href: "/work" },
   { label: "Packages", href: "/packages" },
   { label: "Contact", href: "/contact" },
+];
+
+// About page story: the three ways we work (not a sequence)
+export const ABOUT_PILLARS = [
+  { title: "Strategic focus", text: "Everything is aligned to revenue, not to likes." },
+  { title: "Speed and quality", text: "Rapid studio execution without cutting corners." },
+  { title: "A proven stack", text: "Social, web and ads working as one system." },
 ];
 
 export const STATS = [
