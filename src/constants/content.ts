@@ -256,6 +256,43 @@ export const WEBSITES_AND_ADS_DEEP_DIVE = {
   },
 };
 
+// Services page deep dive: heading (the second part is set in gold), intro line, and what each service includes.
+// Keys match the service ids, which are also the quick-jump links in the page header.
+export const SERVICES_DEEP_DIVE = {
+  headingLead: "What's included",
+  headingFollow: "in each service.",
+  intro: "Everything that comes with each service, so you know exactly what you get before we start.",
+};
+
+export const SERVICE_INCLUDES: Record<string, { cta: string; items: string[] }> = {
+  "social-media": { cta: "Get a sample content calendar", items: SOCIAL_MEDIA_DEEP_DIVE.contentManagement },
+  "creative-design": { cta: "Ask about branding", items: SOCIAL_MEDIA_DEEP_DIVE.brandingCreative },
+  "reels-video": {
+    cta: "Plan a video series",
+    items: [
+      "High-impact Reels & Shorts production",
+      "Video scripts and storyboards",
+      "Data-backed captions & hashtag research",
+      "Scheduled posting & prime-time distribution",
+      "Monthly analytics & reporting",
+      "Dynamic retargeting with video ads",
+    ],
+  },
+  "website-dev": { cta: "Discuss a website", items: WEBSITES_AND_ADS_DEEP_DIVE.websites },
+  "meta-google-ads": { cta: "Plan an ad campaign", items: WEBSITES_AND_ADS_DEEP_DIVE.paidAdvertising.features },
+  "lead-gen": {
+    cta: "Map your funnel",
+    items: [
+      "Targeted lead generation & enquiry funnels",
+      "Monthly strategic content calendars",
+      "Continuous A/B testing & campaign optimization",
+      "Transparent cost-per-lead tracking & weekly reports",
+      "Monthly analytics, KPI breakdown & reporting",
+      "Strategy tied to revenue, not vanity metrics",
+    ],
+  },
+};
+
 export const PROCESS_STEPS = [
   {
     step: "01",

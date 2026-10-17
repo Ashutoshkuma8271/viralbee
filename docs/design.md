@@ -136,3 +136,7 @@ Honeycomb floor (`common/HexLattice.tsx`, two SVG paths per lattice) on a plane 
 ## About page story (2026-10-17)
 
 Team photo as an object in depth: it turns flat from rotateY −16° as the section scrolls in (outer wrapper) with pointer tilt inside (TiltCard), and pushes in slowly (scale 1.18 → 1.04); a large gold hexagon outline behind it and a small hex cluster in front move at different speeds; faint lattice on the right (`.lattice-fade-left`). Quote in Fraunces as a `<blockquote>` with a word-by-word read-along (0.4 → 1, StatementScene pattern). Pillars: hexagon bullets that draw in and fill gold on hover, rows that rise in, and ServicesOverview-style dimming. No blend modes over the photo (they forced a re-blend every scrolled frame). Phones: no turn, tilt, push-in or cluster parallax.
+
+## Services deep dive (2026-10-17)
+
+Six blocks as one journey: big outlined Fraunces numbers 01–06 (`.num-outline`, a real sequence) drifting behind silver Clash titles; photo as a 3D object (outer scroll turn ±14° toward the text, inner TiltCard, push-in) with a drawn hexagon behind and a two-hex cluster in front; alternating 7/5 and 5/7 columns. Lists are hairline rows with drawing hexagon bullets and ServicesOverview-style dimming. A travelling gold dot links the blocks; on laptops a sticky hexagon rail (a labelled `<nav>`) fills with scroll and jumps to each id. Phones: no turn, tilt, rail or parallax.

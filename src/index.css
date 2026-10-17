@@ -280,6 +280,28 @@ body {
     mask-composite: intersect;
   }
 
+  /* Platform logos slide in one after another (60 ms apart) once the wrapper gets .is-in; --from sets the side */
+  .logos-stagger > ul > li {
+    opacity: 0;
+    transform: translateX(var(--from, 24px));
+  }
+  .logos-stagger.is-in > ul > li {
+    animation: logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .logos-stagger.is-in > ul > li:nth-child(2) { animation-delay: 60ms; }
+  .logos-stagger.is-in > ul > li:nth-child(3) { animation-delay: 120ms; }
+  .logos-stagger.is-in > ul > li:nth-child(4) { animation-delay: 180ms; }
+  .logos-stagger.is-in > ul > li:nth-child(5) { animation-delay: 240ms; }
+  @keyframes logo-in {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Big outlined numbers (Services deep dive): gold hairline, transparent fill */
+  .num-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(242, 165, 22, 0.35);
+  }
+
   /* Slow drift for large decorative shapes */
   .drift-slow {
     animation: drift-slow 16s ease-in-out infinite alternate;
