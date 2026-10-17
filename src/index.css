@@ -441,14 +441,15 @@ button[class*='rounded-full']:active {
   scale: 0.97;
 }
 
-/* Light sweep across gold pill buttons on hover (a glint, like light across metal) */
-a[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']),
-button[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']) {
+/* Light sweep across gold pill buttons on hover (a glint, like light across metal). Skips visually hidden links
+   (sr-only, e.g. "Skip to content"): position: relative here used to override sr-only and push every page down 22px. */
+a[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']):not([class~='sr-only']),
+button[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']):not([class~='sr-only']) {
   position: relative;
   overflow: hidden;
 }
-a[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed'])::after,
-button[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed'])::after {
+a[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']):not([class~='sr-only'])::after,
+button[class~='bg-gold'][class*='rounded-full']:not([class~='absolute']):not([class~='fixed']):not([class~='sr-only'])::after {
   content: '';
   position: absolute;
   inset: 0;

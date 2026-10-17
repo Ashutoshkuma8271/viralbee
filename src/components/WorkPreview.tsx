@@ -43,12 +43,12 @@ const ProjectPanel: React.FC<{ item: Item; imageX?: ReturnType<typeof useTransfo
       </span>
     </div>
     </TiltCard>
-    <div className="mt-6">
-      <h3 className="font-display text-2xl font-semibold leading-tight text-white transition-colors duration-300 group-hover:text-gold lg:text-[clamp(1.6rem,2.2vw,2.4rem)]">
+    <div className="mt-6 text-center">
+      <h3 className="text-balance font-display text-2xl font-semibold leading-tight text-white transition-colors duration-300 group-hover:text-gold lg:text-[clamp(1.6rem,2.2vw,2.4rem)]">
         {item.title}
       </h3>
     </div>
-    <p className="mt-3 max-w-[52ch] font-sans text-base leading-relaxed text-white/70">{item.description}</p>
+    <p className="mx-auto mt-3 max-w-[52ch] text-balance text-center font-sans text-base leading-relaxed text-white/70">{item.description}</p>
   </Link>
 );
 

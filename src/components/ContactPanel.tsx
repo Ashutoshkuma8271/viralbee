@@ -281,11 +281,12 @@ export const ContactPanel: React.FC = () => {
               </label>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            {/* Two equal buttons across the full form width; stacked on phones */}
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="inline-flex h-14 cursor-pointer items-center justify-center rounded-full bg-ink px-8 text-base font-semibold text-wax transition-colors hover:bg-black disabled:cursor-wait disabled:opacity-70"
+                className="inline-flex h-14 w-full cursor-pointer items-center justify-center rounded-full bg-ink px-6 text-base font-semibold text-wax transition-colors hover:bg-black disabled:cursor-wait disabled:opacity-70"
               >
                 {status === 'sending' ? 'Sending…' : ENDPOINT ? 'Send enquiry' : 'Email us this enquiry'}
               </button>
@@ -296,7 +297,7 @@ export const ContactPanel: React.FC = () => {
                 onClick={(e) => {
                   if (!validate()) e.preventDefault();
                 }}
-                className="inline-flex h-14 items-center justify-center rounded-full border border-ink/25 px-8 text-base font-semibold transition-colors hover:border-ink hover:bg-ink hover:text-wax"
+                className="inline-flex h-14 w-full items-center justify-center rounded-full border border-ink/25 px-6 text-base font-semibold transition-colors hover:border-ink hover:bg-ink hover:text-wax"
               >
                 Chat on WhatsApp
               </a>
